@@ -1,0 +1,22 @@
+# 凭据永不入库
+.cf_token
+.admin_token
+.kv_id
+.d1_uuid
+.session_secret
+*.key
+
+# 参考代码 (第三方 ithtelab/workbuddy-manager)
+ref/
+
+# 临时/产物
+*.log
+*.swp
+
+# 测试自签证书 (运行时生成)
+selfsigned.*.pem
+tools/*.pem
+*.out
+
+# 本地备份
+*.orig

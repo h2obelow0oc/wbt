@@ -1,0 +1,13 @@
+{
+  "name": "wbt-gateway",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "wbr（workbuddy/cline/minimax 等）OpenAI 兼容网关 —— Cloud Studio 载体实验分支，从 wb-manager 复制，原仓保持可回 Render",
+  "main": "worker/index_turso.js",
+  "scripts": {
+    "start": "node --import ./worker/backends/hook.mjs worker/index_turso.js",
+    "test": "bash tools/run-all.sh"
+  },
+  "engines": { "node": ">=22" }
+}

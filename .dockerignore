@@ -1,0 +1,6 @@
+.git
+docs
+ref
+tools/e2e.out
+tools/*.pem
+node_modules

@@ -1,0 +1,52 @@
+{
+  "exported_at": "2026-11-02T04:00:00.000Z",
+  "accounts": [
+    {
+      "provider": "minimax",
+      "nickname": "minimax-008cf474",
+      "access_token": "eyJhbGciOiJIUzI1NiJ9.minimax-fixture-token.000000000000000000",
+      "refresh_token": "minimax-fixture-refresh-token-0000000000",
+      "expires_at": "1793625844752",
+      "token_type": "Bearer",
+      "scope": "all"
+    },
+    {
+      "provider": "raccoon",
+      "nickname": "RaccoonNatalie (1890)",
+      "access_token": "raccoon-fixture-access-token-000000000000",
+      "refresh_token": "raccoon-fixture-refresh-token-000000000000",
+      "expires_at": 1796000000,
+      "phone": "18900000000",
+      "user_id": "u-rc-0001",
+      "office_identity": "office-fixture-0001",
+      "device_id": "device-fixture-0001"
+    },
+    {
+      "provider": "cline",
+      "nickname": "h2obelow0oc@gmail.com",
+      "access_token": "workos:cline-fixture-access-token-000000",
+      "refresh_token": "cline-fixture-refresh-token-0000000000",
+      "expire_time": 1796000000,
+      "account_id": "acct-fixture-0001"
+    },
+    {
+      "provider": "lobsterai",
+      "nickname": "181******90",
+      "access_token": "lobsterai-fixture-access-token-00000000",
+      "refresh_token": "lobsterai-fixture-refresh-token-00000000",
+      "expires_at": 1796000000
+    },
+    {
+      "provider": "trae",
+      "nickname": "trae-fixture",
+      "access_token": "trae-fixture-access-token-0000000000000",
+      "refresh_token": "trae-fixture-refresh-token-000000000000",
+      "expires_at": 1796000000,
+      "phone": "18900000001",
+      "uid": "trae-uid-0001",
+      "device_id": "trae-device-0001",
+      "machine_id": "trae-machine-0001",
+      "enterprise_id": "trae-ent-0001"
+    }
+  ]
+}
