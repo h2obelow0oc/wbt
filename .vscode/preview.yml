@@ -2,7 +2,7 @@
 # （Lifecycle.Start 钩子在纯 API Run 下实测不执行，改走这条官方通道）
 apps:
   - port: 7860
-    run: node --import ./worker/backends/hook.mjs worker/index_turso.js
+    run: bash ./start.sh
     root: .
     name: wbt-gateway
     mainPort: true
