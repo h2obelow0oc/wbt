@@ -1082,7 +1082,11 @@ async function handleProxy(request, p) {
     // 把各模型护栏有效上限随响应带出(DSH 侧可据它设 contextWindow), JSON 序列化一次。
     const h = new Headers(); h.set("content-type", "application/json");
     Object.entries(corsHeaders()).forEach(([k, v]) => h.set(k, v));
-    h.set("X-Upstream-Context-Window", JSON.stringify(winHdr));
+    // 载体护栏：Cloud Studio 的 openresty 代理对响应头有尺寸上限，
+    // 账号一多 winHdr 全量 JSON 会撑爆它 → 整条 /v1/models 回 500「Header overflow」。
+    // 超限就整个不发这个头（客户端只当「窗口未知」走兜底，绝不能因它废掉响应）。
+    const winJson = JSON.stringify(winHdr);
+    if (winJson.length <= 4000) h.set("X-Upstream-Context-Window", winJson);
     return new Response(JSON.stringify({ object: "list", data }), { status: 200, headers: h }); }
   let body = await request.json().catch(() => ({}));
   // 上下文护栏: 拦"空转/历史无限膨胀"把账号额度烧穿 (413 上限 / 429 循环)。
