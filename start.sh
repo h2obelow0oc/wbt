@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
-# Cloud Studio 启动包装：镜像自带 node 太老（不支持 --import），nvm 里的新版非交互 PATH 不加载
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-ok() { node -e 'process.exit(+process.versions.node>=20?0:1)' 2>/dev/null; }
+# Cloud Studio 启动包装：镜像/nvm 的 node 只有 v18（不支持 --import），
+# 直接从 npmmirror 拉 node22 二进制到持久盘 /workspace/.node22，一次到位。
+cd "$(dirname "$0")"
+ok() { node -e 'process.exit(+process.versions.node.split(".")[0]>=22?0:1)' 2>/dev/null; }
+ND=/workspace/.node22
+[ -x "$ND/bin/node" ] && export PATH="$ND/bin:$PATH"
 if ! ok; then
-  export NVM_NODEJS_ORG_MIRROR=https://npmmirror.com/mirrors/node/
-  nvm install 22 >/dev/null 2>&1 || nvm install 20 >/dev/null 2>&1
-  nvm use default >/dev/null 2>&1
+  echo "node<22, downloading v22.14.0 ..."
+  arch=$(uname -m)
+  case "$arch" in x86_64) a=linux-x64;; aarch64) a=linux-arm64;; *) echo "unknown arch $arch"; exit 1;; esac
+  mkdir -p "$ND"
+  curl -fsSL "https://npmmirror.com/mirrors/node/v22.14.0/node-v22.14.0-$a.tar.gz" -o /tmp/n22.tar.gz || { echo "download failed"; exit 1; }
+  tar -xzf /tmp/n22.tar.gz -C "$ND" --strip-components=1 || { echo "extract failed"; exit 1; }
+  export PATH="$ND/bin:$PATH"
 fi
 echo "node=$(node -v) at $(command -v node)"
 ok || { echo "FATAL: node still too old"; exit 1; }
-cd "$(dirname "$0")"
 exec node --import ./worker/backends/hook.mjs worker/index_turso.js
